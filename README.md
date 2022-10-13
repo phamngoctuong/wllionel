@@ -4,6 +4,63 @@ Laravel is a web application framework with expressive, elegant syntax. It's one
 
 Laraish brings the Laravel Framework into WordPress, which allow us to have all the benefits of Laravel. So you can create themes with less effort, more enjoyment!
 
+Link [Theme && Plugin](https://drive.google.com/file/d/11_7gp6gYdPdSR9EHhXx_0zyJSz63v-ap/view?usp=sharing)
+
+file wl-bootstrap.php && in functions.php add code: 
+
+C:\xampp\htdocs\wayarmy\wp-content\plugins\wl-bootstrap\wl-bootstrap.php
+
+```php
+/**
+ * @package WL_Bootstrap
+ * @version 1.0
+ */
+/*
+Plugin Name: WL_Boot
+Description: This plugin allows you to use any functions, methods, libraries of Laravel in WordPress project
+Author: Lionel Pham
+Version: 1.0
+Author URI: https://github.com/lionelphamit
+*/
+add_action('plugins_loaded', 'wla_bootstrap');
+function wla_bootstrap() {
+    define("TESTP",true);
+}
+```
+
+C:\xampp\htdocs\wayarmy\wp-content\themes\twentyseventeen\functions.php
+
+```php
+if (defined('TESTP')) { 
+    require WP_PLUGIN_DIR . '/wllaraish/functions.php'; 
+}
+```
+Laravel Mix with public folder outside the project folder
+
+```php
+const mix = require('laravel-mix');
+/*
+ |--------------------------------------------------------------------------
+ | Mix Asset Management
+ |--------------------------------------------------------------------------
+ |
+ | Mix provides a clean, fluent API for defining some Webpack build steps
+ | for your Laravel application. By default, we are compiling the Sass
+ | file for the application as well as bundling up all the JS files.
+ |
+ */
+mix.setPublicPath('../../themes/twentyseventeen');
+mix.js('resources/js/app.js', 'public/js')
+.sass('resources/sass/app.scss', 'public/css')
+.sass('resources/sass/style.scss', 'public/css')
+.styles([
+    '../../themes/twentyseventeen/public/css/app.css',
+    '../../themes/twentyseventeen/public/css/style.css',
+], '../../themes/twentyseventeen/public/css/all.css');
+```
+
+Link [Document](https://c-i-ph-n-m-m-tr-n-ubuntu-c-n-thi.gitbook.io/project/laravel-mix-with-public-folder-outside-the-project-folder-ok)
+
 ## Table of contents
 
 - [Requirement](#requirement)
@@ -65,6 +122,8 @@ You can install Laraish by issuing the following command via [Composer](https://
 
 ```shell script
 composer create-project --prefer-dist laraish/laraish <theme-name>
+
+composer create-project --prefer-dist wllionel/wllionel <theme-name>
 ```
 
 Note that **the MySQL server and the web server must be running before you can issue the `composer create-project` command** to install Laraish. Because after Composer finishes the installation, it's going to run an artisan command, which requires MySQL server and the web server that host the WordPress be running at the time you issuing the command.
